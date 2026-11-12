@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Claude Fable 5.2 vs Claude Opus 5.5 : benchmark comparatif</title>
+  <meta name="description" content="Comparatif indépendant de Claude Fable 5.2 et Claude Opus 5.5 : scores sur 12 benchmarks, écarts, prix et simulateur de coût.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <div>
+        <p class="eyebrow">Comparatif indépendant · données du <span id="updated"></span></p>
+        <h1>Claude Fable 5.2 vs Claude Opus 5.5</h1>
+        <p class="lede">
+          Fable 5.2 obtient le meilleur score sur 11 des 12 benchmarks publiés par Anthropic.
+          Opus 5.5 coûte deux fois moins cher par token. Ce site met les deux en regard.
+        </p>
+      </div>
+      <button type="button" id="theme-toggle" class="btn" aria-label="Changer de thème">Thème sombre</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section aria-label="Chiffres clés">
+      <div id="kpis" class="kpi-row"></div>
+    </section>
+
+    <section id="benchmarks" aria-labelledby="benchmarks-title">
+      <div class="section-head">
+        <h2 id="benchmarks-title">Scores par benchmark</h2>
+        <p>Scores communiqués par Anthropic, chaque modèle à son niveau d'effort le plus élevé sauf mention contraire.</p>
+      </div>
+
+      <div class="filters" role="group" aria-label="Filtres des benchmarks">
+        <div id="category-filter" class="segmented" role="group" aria-label="Catégorie"></div>
+        <label class="select-label">
+          <span>Tri</span>
+          <select id="sort-select">
+            <option value="source">Ordre de la source</option>
+            <option value="gap">Écart décroissant</option>
+            <option value="fable">Score de Fable 5.2</option>
+            <option value="opus">Score d'Opus 5.5</option>
+          </select>
+        </label>
+      </div>
+
+      <figure class="card" id="scores-card">
+        <div class="card-head">
+          <div>
+            <h3>Score obtenu, en %</h3>
+            <p class="card-sub" id="scores-sub"></p>
+          </div>
+          <button type="button" class="btn btn-small table-toggle" aria-pressed="false" data-target="scores">Tableau</button>
+        </div>
+        <ul class="legend" aria-label="Légende">
+          <li><span class="swatch s1"></span>Claude Fable 5.2</li>
+          <li><span class="swatch s2"></span>Claude Opus 5.5</li>
+        </ul>
+        <div id="scores-chart" class="chart-view"></div>
+        <div id="scores-table" class="table-view" hidden></div>
+        <p id="elo-note" class="callout"></p>
+      </figure>
+
+      <figure class="card" id="gap-card">
+        <div class="card-head">
+          <div>
+            <h3>Avance de Fable 5.2 sur Opus 5.5</h3>
+            <p class="card-sub">Écart en points de pourcentage, du plus grand au plus petit.</p>
+          </div>
+          <button type="button" class="btn btn-small table-toggle" aria-pressed="false" data-target="gap">Tableau</button>
+        </div>
+        <div id="gap-chart" class="chart-view"></div>
+        <div id="gap-table" class="table-view" hidden></div>
+      </figure>
+    </section>
+
+    <section id="prix" aria-labelledby="prix-title">
+      <div class="section-head">
+        <h2 id="prix-title">Prix</h2>
+        <p>Tarifs de l'API Anthropic, en dollars par million de tokens.</p>
+      </div>
+
+      <div class="two-col">
+        <figure class="card" id="price-card">
+          <div class="card-head">
+            <div>
+              <h3>Prix par million de tokens</h3>
+              <p class="card-sub">Mode standard et mode rapide. Les lectures de cache coûtent 0,20 $ pour les deux modèles.</p>
+            </div>
+            <button type="button" class="btn btn-small table-toggle" aria-pressed="false" data-target="price">Tableau</button>
+          </div>
+          <ul class="legend" aria-label="Légende">
+            <li><span class="swatch s1"></span>Claude Fable 5.2</li>
+            <li><span class="swatch s2"></span>Claude Opus 5.5</li>
+          </ul>
+          <div id="price-chart" class="chart-view"></div>
+          <div id="price-table" class="table-view" hidden></div>
+        </figure>
+
+        <div class="card" id="calc-card">
+          <div class="card-head">
+            <div>
+              <h3>Simulateur de coût mensuel</h3>
+              <p class="card-sub">Mode standard, en millions de tokens par mois.</p>
+            </div>
+          </div>
+          <form id="calc-form" class="calc-form" onsubmit="return false">
+            <label>
+              <span>Entrée hors cache</span>
+              <input type="number" id="calc-input" min="0" step="1" value="100" inputmode="decimal">
+            </label>
+            <label>
+              <span>Lectures de cache</span>
+              <input type="number" id="calc-cache" min="0" step="1" value="400" inputmode="decimal">
+            </label>
+            <label>
+              <span>Sortie</span>
+              <input type="number" id="calc-output" min="0" step="1" value="20" inputmode="decimal">
+            </label>
+          </form>
+          <div id="calc-result" class="calc-result" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="fiche" aria-labelledby="fiche-title">
+      <div class="section-head">
+        <h2 id="fiche-title">Fiche technique</h2>
+      </div>
+      <div class="card">
+        <div id="specs-table" class="table-view"></div>
+      </div>
+    </section>
+
+    <section id="methode" aria-labelledby="methode-title">
+      <div class="section-head">
+        <h2 id="methode-title">Méthode et limites</h2>
+      </div>
+      <div class="card prose">
+        <ul>
+          <li>
+            Les scores viennent d'une source unique : le tableau comparatif de la
+            <a href="https://www.anthropic.com/claude/fable">page de Claude Fable 5.2</a>.
+            Ce sont des chiffres communiqués par l'éditeur, sans reproduction indépendante ici.
+          </li>
+          <li>
+            Chaque modèle est mesuré à son niveau d'effort le plus élevé disponible, garde-fous activés,
+            sauf FrontierCode 2.0 (Fable 5.2 à l'effort xhigh) et Remote Labor Index (Fable 5.2 à l'effort high).
+          </li>
+          <li>
+            Les lignes de cybersécurité et de conception de protéines du tableau d'origine sont exclues :
+            elles portent sur Claude Mythos 5.2 et sur des variantes sans garde-fous, pas sur les deux modèles comparés ici.
+          </li>
+          <li>
+            Les benchmarks du lancement d'Opus 5.5 sans score publié pour Fable 5.2
+            (Terminal-Bench 4.0, CursorBench 4.0, GDPval-AA) ne figurent pas dans les graphiques.
+          </li>
+          <li>
+            Certains scores d'Opus 5.5 diffèrent de ceux de sa
+            <a href="https://www.anthropic.com/claude-opus-5-5">page de lancement</a>
+            (OSWorld 2.1 : 81,8 % ; AutomationBench : 40,0 %), les conditions d'évaluation n'étant pas les mêmes.
+            Les valeurs retenues sont celles du tableau commun aux deux modèles.
+          </li>
+          <li>
+            Prix et caractéristiques : <a href="https://platform.claude.com/docs/en/about-claude/pricing">tarifs</a> et
+            <a href="https://platform.claude.com/docs/en/about-claude/models/overview">documentation des modèles</a> d'Anthropic.
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Site indépendant, sans lien avec Anthropic. Claude est une marque d'Anthropic.</p>
+    </div>
+  </footer>
+
+  <div id="tooltip" class="tooltip" role="tooltip" hidden></div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
