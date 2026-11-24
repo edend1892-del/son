@@ -566,7 +566,10 @@ const tapBtn = (id, fn) => { const el=document.getElementById(id); el.addEventLi
 tapBtn('playBtn', ()=>{ startEl.classList.add('hidden'); started=true; paused=false; if (isTouch) goFullscreen(); else canvas.requestPointerLock && canvas.requestPointerLock(); });
 tapBtn('resumeBtn', closeMenu);
 tapBtn('fsBtn', goFullscreen);
-tapBtn('newBtn', ()=>{ if (!confirm('Créer un nouveau monde ? Le monde actuel sera perdu.')) return;
+let newArmed = 0;
+tapBtn('newBtn', ()=>{ const nb=document.getElementById('newBtn');
+  if (performance.now() - newArmed > 4000){ newArmed = performance.now(); nb.textContent='Confirmer ? (monde actuel perdu)'; setTimeout(()=>nb.textContent='Nouveau monde',4000); return; }
+  newArmed = 0; nb.textContent='Nouveau monde';
   save = {seed:(Math.random()*1e9)|0, edits:[], player:null}; edits = new Map(); newWorld(); persist(); closeMenu(); });
 document.getElementById('menuBtn').addEventListener('touchstart', e=>{ e.preventDefault(); e.stopPropagation(); if (started) openMenu(); }, {passive:false});
 document.getElementById('menuBtn').addEventListener('click', ()=>{ if (started) openMenu(); });
