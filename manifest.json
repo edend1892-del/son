@@ -1,0 +1,9 @@
+{
+  "name": "Blocterre",
+  "short_name": "Blocterre",
+  "start_url": "./index.html",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#0a1423",
+  "theme_color": "#8fc3ee"
+}
