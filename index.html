@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GTA Sales Tracker — ventes de GTA VI en direct</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <span class="dot" aria-hidden="true"></span>
+    <strong>GTA Sales Tracker</strong>
+    <span class="muted">· site de fan non officiel</span>
+  </div>
+  <nav class="tabs" role="tablist">
+    <button role="tab" aria-selected="true" data-tab="live">GTA VI en direct</button>
+    <button role="tab" aria-selected="false" data-tab="compare">Comparer tous les GTA</button>
+  </nav>
+</header>
+
+<main>
+  <!-- ============ ONGLET 1 : LIVE ============ -->
+  <section id="tab-live" class="tab-panel">
+    <div class="hero">
+      <p class="eyebrow"><span class="live-pill"><span class="pulse"></span>EN DIRECT</span> Grand Theft Auto VI · sorti le 19 novembre 2026</p>
+      <h1 id="live-copies" aria-live="off">—</h1>
+      <p class="hero-sub">exemplaires vendus (estimation)</p>
+      <div class="kpis">
+        <div class="kpi"><span class="kpi-label">Chiffre d'affaires estimé</span><span class="kpi-value" id="live-revenue">—</span></div>
+        <div class="kpi"><span class="kpi-label">Rythme actuel</span><span class="kpi-value" id="live-rate">—</span></div>
+        <div class="kpi"><span class="kpi-label">Depuis la sortie</span><span class="kpi-value" id="live-elapsed">—</span></div>
+        <div class="kpi"><span class="kpi-label">vs GTA V (vie entière)</span><span class="kpi-value" id="live-vs-v">—</span></div>
+      </div>
+      <p class="disclaimer">
+        ⚠️ Aucun chiffre de vente officiel n'est publié en temps réel. Le compteur extrapole à partir des
+        estimations publiques (Sensor Tower, Alinea Analytics) avec un modèle de ralentissement progressif des ventes.
+        Take-Two n'a pas encore communiqué de chiffre officiel confirmé. <a href="#sources">Voir les sources ↓</a>
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h2>Courbe des ventes cumulées de GTA VI</h2>
+        <p class="muted">Ligne pleine : estimation passée · pointillés : projection · points : estimations publiées</p>
+      </div>
+      <div class="chart" id="chart-curve"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h2>Les premiers jours : GTA VI face à ses prédécesseurs</h2>
+        <p class="muted">Exemplaires vendus pendant la fenêtre de lancement indiquée</p>
+      </div>
+      <div class="chart" id="chart-launch"></div>
+    </div>
+  </section>
+
+  <!-- ============ ONGLET 2 : COMPARER ============ -->
+  <section id="tab-compare" class="tab-panel" hidden>
+    <div class="card">
+      <div class="card-head">
+        <h2>Ventes totales de chaque GTA</h2>
+        <p class="muted">Exemplaires vendus sur toute la vie du jeu · GTA VI se met à jour en direct</p>
+      </div>
+      <div class="filters">
+        <label>Trier :
+          <select id="sort-select">
+            <option value="sales">Par ventes</option>
+            <option value="year">Par année de sortie</option>
+          </select>
+        </label>
+        <label class="check"><input type="checkbox" id="spin-offs" checked> Inclure les épisodes portables</label>
+      </div>
+      <div class="chart" id="chart-all"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h2>Face-à-face</h2>
+        <p class="muted">Choisis deux jeux pour les comparer</p>
+      </div>
+      <div class="versus-pickers">
+        <select id="pick-a" aria-label="Premier jeu"></select>
+        <span class="vs">VS</span>
+        <select id="pick-b" aria-label="Second jeu"></select>
+      </div>
+      <div id="versus" class="versus"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h2>Tableau complet</h2></div>
+      <div class="table-wrap">
+        <table id="table-all">
+          <thead><tr><th>Jeu</th><th>Sortie</th><th class="num">Ventes totales</th><th class="num">Ventes jour 1</th><th class="num">Recettes jour 1</th><th>Plateformes de lancement</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="sources" class="card sources">
+    <h2>Sources et méthode</h2>
+    <ul>
+      <li>GTA VI, 24,6 M d'exemplaires numériques et ≈ 2,36 Md$ au jour 1 : estimation Sensor Tower, rapportée par <a href="https://finance.yahoo.com/markets/stocks/articles/gta-6-just-sold-estimated-150701356.html" target="_blank" rel="noopener">Yahoo Finance</a> et <a href="https://www.gamespot.com/articles/gta-6-has-sold-almost-8-million-copies-so-far-and-ps5-is-dominating-the-split-of-course/" target="_blank" rel="noopener">GameSpot</a>.</li>
+      <li>GTA VI, 19,1 M d'exemplaires le matin de la sortie (précommandes incluses) : <a href="https://www.mensjournal.com/news/gta-6-sales-19-million-copies-gta-v-record" target="_blank" rel="noopener">Men's Journal</a>.</li>
+      <li>GTA VI, 44,9 M d'exemplaires et plus de 4 Md$ à la fin du premier week-end : estimation <a href="https://alineaanalytics.substack.com/p/gta-6-sells-449m-copies-makes-40b" target="_blank" rel="noopener">Alinea Analytics</a> (<a href="https://www.tweaktown.com/news/114836/analyst-gta-6-made-dollars4-billion-opening-weekend-with-45-million-copies-sold/index.html" target="_blank" rel="noopener">TweakTown</a>).</li>
+      <li>Un chiffre « officiel » de 32,5 M circule (<a href="https://www.vice.com/en/article/gta-6-sales-so-far/" target="_blank" rel="noopener">Vice</a>) mais n'est pas confirmé par d'autres médias ; il n'est pas utilisé ici.</li>
+      <li>GTA V au jour 1 (11,2 M, 815 M$) et ventes totales de la série : communiqués Take-Two, <a href="https://gamedevreports.substack.com/p/gta-v-sales-reached-180m-copies" target="_blank" rel="noopener">GameDev Reports</a>, <a href="https://sportskeeda.com/gta/news-gta-series-hits-record-sales-420-million-units-far" target="_blank" rel="noopener">Sportskeeda</a>.</li>
+      <li>Anciens épisodes : derniers chiffres publics connus (Take-Two / Rockstar), souvent anciens et arrondis — ce sont des minimums (« plus de »).</li>
+    </ul>
+    <p class="muted"><strong>Modèle du compteur :</strong> interpolation entre les estimations publiées, puis un rythme de ventes qui diminue de moitié environ tous les 3,5 jours, avec un plancher de 150 000 ventes par jour. Le prix moyen par exemplaire (≈ 90 $) vient du rapport recettes/exemplaires d'Alinea. Pour changer les chiffres, modifie <code>data.js</code>.</p>
+    <p class="muted">Site de fan non affilié à Rockstar Games ni à Take-Two Interactive.</p>
+  </section>
+</main>
+
+<div id="tooltip" class="tooltip" role="status" hidden></div>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
