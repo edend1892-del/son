@@ -1,0 +1,5 @@
+dist/travee_sauvegarde.txt
+*.o
+*.obj
+sim_test
+sim_test.exe
