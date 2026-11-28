@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Travée — Bâtisseurs de ponts</title>
+<meta name="description" content="Jeu de construction de ponts : route, bois, acier, câbles, vérins… Fais passer voitures, bus et camions sans tout casser !">
+<meta name="theme-color" content="#1d2a40">
+<meta property="og:title" content="Travée — Bâtisseurs de ponts">
+<meta property="og:description" content="Construis des ponts, teste-les avec de vrais véhicules et regarde-les tenir… ou s'effondrer.">
+<meta property="og:image" content="apercu.jpg">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<style>
+  html, body { margin: 0; height: 100%; background: #141c2b; overflow: hidden; overscroll-behavior: none;
+               touch-action: none; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; }
+  canvas { display: block; touch-action: none; }
+  noscript { color: #fff; font: 18px system-ui, sans-serif; display: block; padding: 40px; text-align: center; }
+</style>
+</head>
+<body>
+<canvas id="jeu" aria-label="Travée, jeu de construction de ponts"></canvas>
+<noscript>Travée a besoin de JavaScript pour fonctionner.</noscript>
+<script src="core.js"></script>
+<script src="game.js"></script>
+</body>
+</html>

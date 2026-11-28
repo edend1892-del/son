@@ -3,3 +3,8 @@ dist/travee_sauvegarde.txt
 *.obj
 sim_test
 sim_test.exe
+site/
+.netlify
+android/build/
+android/assets/
+android/keystore/
